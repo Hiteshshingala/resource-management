@@ -14,14 +14,14 @@ const Routers = () => (
   <>
     {/* <NavBar /> */}
     <Switch>
-      <Route exact path="/" component={Login}></Route>
+      <Route exact path="/" component={Dashboard}></Route>
       <Route  exact path="/login" component={Login}></Route>
       <Route  exact path="/sign-up" component={SignUP}></Route>
-      <PrivetRouter
+      <Route
         exact
         path="/dashboard"
         component={Dashboard}
-      ></PrivetRouter>
+      ></Route>
       <PrivetRouter
         exact
         path="/booktable"

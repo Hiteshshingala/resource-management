@@ -5,49 +5,47 @@ import filterFactory, {
   dateFilter,
   selectFilter 
 } from "react-bootstrap-table2-filter";
-import { getTableBookingList } from "../../services/restaurantService";
-import moment from "moment-timezone";
+import * as data from '../../constant/data.json'
 
-function Table({ refId }) {
+function Table() {
   const [bookingsData, setBookingsData] = useState([]);
   useEffect(() => {
+    console.log('@@@@bookingsData', data)
     getBookingData();
   }, []);
-
+  
   const getBookingData = async () => {
-    const resData = await getTableBookingList({ refId: refId });
-    if (resData.success && resData.payload) {
-      setBookingsData(resData.payload);
-    }
+      console.log('@@@@default', data.default)
+      setBookingsData(data.default);
   };
-  const filterByDate = (filterVal, data) => {
-    const  todayDate = moment();
-    let future = [], past = [];
-    data.forEach(date => {
-      if (!todayDate.isAfter(date.time)) {
-        console.log('Date is future');
-        future.push(date)
-      }else{
-        past.push(date)
-          console.log('Date is not future');
-      }
-    });
-    if(filterVal == 1){
-      return past;
-    } else {
-      return future;
-    }
-  }
+  // const filterByDate = (filterVal, data) => {
+  //   const  todayDate = moment();
+  //   let future = [], past = [];
+  //   data.forEach(date => {
+  //     if (!todayDate.isAfter(date.time)) {
+  //       console.log('Date is future');
+  //       future.push(date)
+  //     }else{
+  //       past.push(date)
+  //         console.log('Date is not future');
+  //     }
+  //   });
+  //   if(filterVal == 1){
+  //     return past;
+  //   } else {
+  //     return future;
+  //   }
+  // }
 
-  const timeOptions = [
-    { value: 1, label: 'past' },
-    { value: 2, label: 'future' }
-  ]
+  // const timeOptions = [
+  //   { value: 1, label: 'past' },
+  //   { value: 2, label: 'future' }
+  // ]
 
   const columns = [
     {
       dataField: "name",
-      text: "Name",
+      text: "name",
       filter: textFilter({
         style: {
           marginTop: "20px",
@@ -55,49 +53,50 @@ function Table({ refId }) {
       }),
       headerAlign: "center",
       align: "center",
-    },
-    {
-      dataField: "noOfSeats",
-      text: "noOfSeats",
-      filter: textFilter({
-        style: {
-          marginTop: "20px",
-        },
-      }),
-      align: "center",
-      headerAlign: "center",
-    },
-    {
-      dataField: "contactNumber",
-      text: "contactNumber",
-      filter: textFilter({
-        style: {
-          marginTop: "20px",
-        },
-      }),
-      headerAlign: "center",
-      align: "center",
-    },
-    {
-      dataField: "time",
-      text: "Time for filter",
-      formatter: (cell) => {
-        return <>{moment(cell).add(1, 'day').format('DD-MM-YYYY hh:mm')}</>
-      },
-      filter: selectFilter({
-        onFilter: filterByDate,
-        options: timeOptions
-      })
-    },
+    }
+    // {
+    //   dataField: "noOfSeats",
+    //   text: "noOfSeats",
+    //   filter: textFilter({
+    //     style: {
+    //       marginTop: "20px",
+    //     },
+    //   }),
+    //   align: "center",
+    //   headerAlign: "center",
+    // },
+    // {
+    //   dataField: "contactNumber",
+    //   text: "contactNumber",
+    //   filter: textFilter({
+    //     style: {
+    //       marginTop: "20px",
+    //     },
+    //   }),
+    //   headerAlign: "center",
+    //   align: "center",
+    // },
+    // {
+    //   dataField: "time",
+    //   text: "Time for filter",
+    //   formatter: (cell) => {
+    //     return <>{moment(cell).add(1, 'day').format('DD-MM-YYYY hh:mm')}</>
+    //   },
+    //   filter: selectFilter({
+    //     onFilter: filterByDate,
+    //     options: timeOptions
+    //   })
+    // },
   ];
   return (
     <div>
-      <BootstrapTable
+      {/* <BootstrapTable
         keyField="id"
         data={bookingsData}
-        filter={filterFactory()}
+        // filter={filterFactory()}
         columns={columns}
-      />
+      /> */}
+      hello
     </div>
   );
 }
